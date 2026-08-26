@@ -1,5 +1,5 @@
 import readline from "readline";
-import { getCommand } from "./command.js";
+import { State } from "./state.js";
 
 export function cleanInput(val: string): string[] {
   if (val.trim().length === 0) {
@@ -8,12 +8,8 @@ export function cleanInput(val: string): string[] {
   return val.toLowerCase().trim().split(/[ ,]+/);
 }
 
-export function startREPL(): void {
-  const rl = readline.createInterface({
-    input: process.stdin,
-    output:process.stdout,
-    prompt:"Pokedex > "
-  });
+export function startREPL(state: State): void {
+  const rl = state.readline;
 
   rl.prompt();
 
@@ -24,11 +20,11 @@ export function startREPL(): void {
       return;
     }
     const userCommand = data[0];
-    const commands = getCommand();
+    const commands = state.commands;
 
     const command = commands[userCommand]
     if (command) {
-      command.callback(commands);
+      command.callback(state);
     } else {
       console.log("Unknown command");
     }
