@@ -13,7 +13,7 @@ export function startREPL(state: State): void {
 
   rl.prompt();
 
-  rl.on("line", (input) => {
+  rl.on("line", async (input) => {
     let data = cleanInput(input);
     if (data.length === 0) {
       rl.prompt();
@@ -24,7 +24,14 @@ export function startREPL(state: State): void {
 
     const command = commands[userCommand]
     if (command) {
-      command.callback(state);
+      try {
+        await command.callback(state);
+      } catch (error) {
+        if (error instanceof Error) {
+          console.error(`An Error occured: ${error.message}`);
+        }
+      }
+
     } else {
       console.log("Unknown command");
     }
