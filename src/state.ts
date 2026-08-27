@@ -1,6 +1,7 @@
 import { createInterface, Interface } from "readline";
 import { commandExit } from "./command_exit.js";
 import { commandHelp } from "./command_help.js";
+import { commandMap } from "./command_map.js";
 
 export type CLICommand = {
   name: string;
@@ -24,6 +25,11 @@ function getCommands(): Record<string, CLICommand> {
       name: "help",
       description: "Displays a help message",
       callback: commandHelp,
+    },
+    map: {
+      name: "map",
+      description: "Display the names of 20 location areas",
+      callback: commandMap,
     }
   }
 }
