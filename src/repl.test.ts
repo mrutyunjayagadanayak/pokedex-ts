@@ -9,7 +9,7 @@ describe.each([
   // TODO: more test cases here
   {
     input: "",
-    expected: [""],
+    expected: [],
   },
   {
     input: "I am BatMan \n",
