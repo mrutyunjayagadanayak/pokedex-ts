@@ -24,10 +24,23 @@ export class PokeAPI {
     this.#cache.add(url, result);
     return result
   }
-  //TODO
-  //async fetchLocation(locationName: string): Promise<Location> {
-    // implement this
-    //}
+
+  async fetchLocation(locationName: string): Promise<Location> {
+    if (locationName.trim().length === 0) {
+      throw new Error("No location name provioded");
+    }
+
+    const url = `${PokeAPI.baseURL}/location-area/${locationName}`;
+
+    const val = this.#cache.get<Location>(url);
+
+    if (val) {
+      return val;
+    }
+    const result = await (await fetch(url)).json();
+    this.#cache.add(url, result);
+    return result;
+  }
 }
 
 export type ShallowLocations = {
@@ -40,7 +53,12 @@ export type ShallowLocations = {
     }[],
 };
 
-//TODO
-//export type Location = {
-  // add properties here
-//};
+
+export type Location = {
+  pokemon_encounters: {
+    pokemon: {
+      name: string;
+      url: string;
+    };
+  }[];
+};

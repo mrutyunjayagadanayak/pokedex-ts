@@ -1,4 +1,4 @@
-import readline from "readline";
+
 import { State } from "./state.js";
 
 export function cleanInput(val: string): string[] {
@@ -25,7 +25,7 @@ export function startREPL(state: State): void {
     const command = commands[userCommand]
     if (command) {
       try {
-        await command.callback(state);
+        await command.callback(state, ...data.slice(1));
       } catch (error) {
         if (error instanceof Error) {
           console.error(`An Error occured: ${error.message}`);

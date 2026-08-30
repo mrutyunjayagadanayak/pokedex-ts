@@ -4,11 +4,12 @@ import { commandHelp } from "./command_help.js";
 import { commandMap } from "./command_map.js";
 import { PokeAPI } from "./pokeapi.js";
 import { commandMapB } from "./command_mapb.js";
+import { commandExplore } from "./command_explore.js";
 
 export type CLICommand = {
   name: string;
   description: string;
-  callback: (state: State) => Promise<void>;
+  callback: (state: State, ...args: string[]) => Promise<void>;
 }
 
 export type State = {
@@ -41,6 +42,11 @@ function getCommands(): Record<string, CLICommand> {
       description: "Display the name of 20 previous areas",
       callback: commandMapB,
     },
+    explore: {
+      name: "explore",
+      description: "Explore an area",
+      callback: commandExplore,
+    }
   }
 }
 

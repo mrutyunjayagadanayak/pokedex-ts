@@ -37,7 +37,7 @@ describe.each([
       interval: 10,
     },
     input2: {
-      key: "https://google.com",
+      key: "https://example.com",
       val: "testdata2",
       interval: 10,
     },
@@ -63,7 +63,7 @@ describe.each([
       val: "testdata2",
       interval: 10,
     }
-  }
+  },
 ])("Test caching ms", ({ input1, input2, expected }) => {
 
   test(`Expected: ${expected.val}`),() => {

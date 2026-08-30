@@ -13,11 +13,13 @@ export class Cache {
     this.#startReapLoop();
   };
 
-  add<T>(key:string, val: T): void {
-    this.#cache.set(key, {
-      createdAt: Date.now(),
-      val: val,
-    });
+  add<T>(key: string, val: T): void {
+    if (key.trim() && val) {
+      this.#cache.set(key, {
+        createdAt: Date.now(),
+        val: val,
+      });
+    }
   }
   get<T>(key: string): T | undefined {
     return this.#cache.get(key)?.val;
